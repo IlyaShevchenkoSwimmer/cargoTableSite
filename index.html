@@ -13,7 +13,43 @@
     <title>cargoTableSite</title>
   </head>
   <body>
-    <div id="app"></div>
+    <div id="app">
+      <table id="cargoList"></table>
+      <form id="cargoForm">
+        <label for="cargoName">Введите название груза:</label><br />
+        <input type="text" id="cargoName" name="cargoName" />
+        <br /><br />
+        <label for="origin">Откуда: </label>
+        <select id="origin" name="origin">
+          <option value="msk">Москва</option>
+          <option value="spb">Санкт-Петербург</option>
+          <option value="ekb">Екатеринбург</option>
+          <option value="nsk">Новосибирск</option>
+        </select>
+
+        <label for="destination">Куда: </label>
+        <select id="destination" name="destination">
+          <option value="msk">Москва</option>
+          <option value="spb">Санкт-Петербург</option>
+          <option value="ekb">Екатеринбург</option>
+          <option value="nsk">Новосибирск</option>
+        </select>
+        <br /><br />
+        <label for="date">Введите дату в формате: </label><br />
+        <input type="date" id="date" name="date" />
+        <br />
+        <br />
+        <label for="status">Статус отправки: </label>
+        <select id="status" name="status">
+          <option value="1" selected>Ожидает отправки</option>
+          <option value="2">В пути</option>
+          <option value="3">Доставлен</option>
+        </select>
+        <br /><br />
+
+        <input type="submit" value="Добавить груз" id="submitForm" />
+      </form>
+    </div>
     <script
       defer
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
