@@ -9,10 +9,18 @@ function createCargoList(state: RootState, list: HTMLElement, filter = 0) {
   list.innerHTML = "";
   state.list.map((cargo) => {
     list.innerHTML += `
-    <tr ${filter === 0 ? "" : cargo.status === filter ? "" : "hidden"}>
+    <tr ${
+      filter === 0 ? "" : cargo.status === filter ? "" : "hidden"
+    } style="width: 60%;">
     <td>
-    <article>
-    <h2>${cargo.name}</h2> <span>${cargo.id}</span>
+    <article class="card d-flex justify-content-center p-3 border border-3 ${
+      cargo.status === 1
+        ? "bg-warning"
+        : cargo.status === 2
+        ? "bg-primary"
+        : "bg-success"
+    }">
+    <h2>${cargo.name}</h2> <span style="color: grey">${cargo.id}</span>
     <span>Откуда: ${cargo.origin}</span><span>Куда: ${cargo.destination}</span>
       <span>Дата отправления: ${cargo.departureDate}</span>
       <select id="${cargo.id}" name="${cargo.id}" class="cargoSelect">
@@ -60,18 +68,32 @@ function statusChange(event: Event) {
   const cargoDay = neededCargoDate?.slice(8, 10);
 
   if (
-    (Number(cargoYear) <= Number(yyyy) &&
-      Number(cargoMonth) <= Number(mm) &&
-      Number(cargoDay) <= Number(dd)) ||
-    target.value === "1" ||
-    target.value === "2"
+    (Number(cargoYear) > Number(yyyy)
+      ? true
+      : Number(cargoMonth) > Number(mm)
+      ? true
+      : Number(cargoDay) > Number(dd)) &&
+    target.value === "3"
+  ) {
+    alert("Товар не мог опередить время!");
+    createCargoList(store.getState(), cargoList as HTMLElement);
+  }
+
+  if (
+    Number(cargoYear) <= Number(yyyy)
+      ? true
+      : Number(cargoMonth) <= Number(mm)
+      ? true
+      : Number(cargoDay) <= Number(dd) ||
+        target.value === "1" ||
+        target.value === "2"
   ) {
     store.dispatch(
-      changeStatus({ cargoStatus: Number(target.value), cargoId: target.id })
+      changeStatus({
+        cargoStatus: Number(target.value),
+        cargoId: target.id,
+      })
     );
-    createCargoList(store.getState(), cargoList as HTMLElement);
-  } else {
-    alert("Товар не мог опередить время!");
     createCargoList(store.getState(), cargoList as HTMLElement);
   }
 }

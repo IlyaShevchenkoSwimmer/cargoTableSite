@@ -13,20 +13,32 @@
     <title>cargoTableSite</title>
   </head>
   <body>
-    <div id="app">
+    <div
+      id="app"
+      class="container text-primary-emphasis text-center row justify-content-center bg-info-subtle rounded p-3"
+      style="margin: 2rem auto"
+    >
       <label for="filter">Отсортировать грузы: </label>
       <br />
-      <select name="filter" id="filter">
+      <select name="filter" id="filter" class="rounded">
         <option value="0" selected>Все грузы</option>
         <option value="1">Ожидает отправки</option>
         <option value="2">В пути</option>
         <option value="3">Доставлен</option>
       </select>
-      <table>
-        <tbody id="cargoList"></tbody>
-      </table>
       <br />
-      <form id="cargoForm">
+      <br />
+      <div class="col-auto">
+        <table class="table table-responsive" style="margin-top: 2rem">
+          <tbody id="cargoList"></tbody>
+        </table>
+      </div>
+      <br />
+      <form
+        id="cargoForm"
+        class="card d-flex justify-content-center p-3 border border-3 bg-primary-subtle"
+        style="width: 60%; margin-top: 40px"
+      >
         <label for="cargoName">Введите название груза:</label><br />
         <input type="text" id="cargoName" name="cargoName" />
         <br /><br />
@@ -46,7 +58,7 @@
           <option value="nsk">Новосибирск</option>
         </select>
         <br /><br />
-        <label for="date">Введите дату в формате: </label><br />
+        <label for="date">Введите дату отправки: </label><br />
         <input type="date" id="date" name="date" />
         <br />
         <br />
