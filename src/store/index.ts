@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import cargoListSlice from "./cargoListSlice";
+import formSlice from "./formSlice";
 
 const store = configureStore({
   reducer: {
     list: cargoListSlice,
+    form: formSlice,
   },
 });
 

@@ -14,7 +14,18 @@
   </head>
   <body>
     <div id="app">
-      <table id="cargoList"></table>
+      <label for="filter">Отсортировать грузы: </label>
+      <br />
+      <select name="filter" id="filter">
+        <option value="0" selected>Все грузы</option>
+        <option value="1">Ожидает отправки</option>
+        <option value="2">В пути</option>
+        <option value="3">Доставлен</option>
+      </select>
+      <table>
+        <tbody id="cargoList"></tbody>
+      </table>
+      <br />
       <form id="cargoForm">
         <label for="cargoName">Введите название груза:</label><br />
         <input type="text" id="cargoName" name="cargoName" />
@@ -43,7 +54,6 @@
         <select id="status" name="status">
           <option value="1" selected>Ожидает отправки</option>
           <option value="2">В пути</option>
-          <option value="3">Доставлен</option>
         </select>
         <br /><br />
 
