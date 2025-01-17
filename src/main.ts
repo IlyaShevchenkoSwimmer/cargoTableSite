@@ -204,7 +204,9 @@ function submitForm(event: Event) {
       })
     );
     cargoName.value = "";
-    createCargoList(store.getState(), cargoList as HTMLElement);
+    const filter = (document.getElementById("filter") as HTMLSelectElement)
+      .value;
+    createCargoList(store.getState(), cargoList as HTMLElement, Number(filter));
   }
 }
 
