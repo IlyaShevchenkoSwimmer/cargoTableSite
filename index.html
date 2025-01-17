@@ -15,62 +15,87 @@
   <body>
     <div
       id="app"
-      class="container text-primary-emphasis text-center row justify-content-center bg-info-subtle rounded p-3"
+      class="container text-primary-emphasis text-center bg-info-subtle rounded p-3"
       style="margin: 2rem auto"
     >
-      <label for="filter">Отсортировать грузы: </label>
-      <br />
-      <select name="filter" id="filter" class="rounded">
-        <option value="0" selected>Все грузы</option>
-        <option value="1">Ожидает отправки</option>
-        <option value="2">В пути</option>
-        <option value="3">Доставлен</option>
-      </select>
-      <br />
-      <br />
-      <div class="col-auto">
-        <table class="table table-responsive" style="margin-top: 2rem">
-          <tbody id="cargoList"></tbody>
-        </table>
-      </div>
-      <br />
-      <form
-        id="cargoForm"
-        class="card d-flex justify-content-center p-3 border border-3 bg-primary-subtle"
-        style="width: 60%; margin-top: 40px"
-      >
-        <label for="cargoName">Введите название груза:</label><br />
-        <input type="text" id="cargoName" name="cargoName" />
-        <br /><br />
-        <label for="origin">Откуда: </label>
-        <select id="origin" name="origin">
-          <option value="msk">Москва</option>
-          <option value="spb">Санкт-Петербург</option>
-          <option value="ekb">Екатеринбург</option>
-          <option value="nsk">Новосибирск</option>
-        </select>
-
-        <label for="destination">Куда: </label>
-        <select id="destination" name="destination">
-          <option value="msk">Москва</option>
-          <option value="spb">Санкт-Петербург</option>
-          <option value="ekb">Екатеринбург</option>
-          <option value="nsk">Новосибирск</option>
-        </select>
-        <br /><br />
-        <label for="date">Введите дату отправки: </label><br />
-        <input type="date" id="date" name="date" />
+      <header>
+        <label for="filter" class="form-label">Отсортировать грузы: </label>
         <br />
-        <br />
-        <label for="status">Статус отправки: </label>
-        <select id="status" name="status">
-          <option value="1" selected>Ожидает отправки</option>
+        <select name="filter" id="filter" class="form-select">
+          <option value="0" selected>Все грузы</option>
+          <option value="1">Ожидает отправки</option>
           <option value="2">В пути</option>
+          <option value="3">Доставлен</option>
         </select>
-        <br /><br />
+      </header>
 
-        <input type="submit" value="Добавить груз" id="submitForm" />
-      </form>
+      <main class="d-flex justify-content-around">
+        <section class="col-auto">
+          <table
+            class="table table-responsive bg-info-subtle"
+            style="margin-top: 2rem"
+          >
+            <tbody id="cargoList" class="bg-info-subtle"></tbody>
+          </table>
+        </section>
+
+        <aside class="container">
+          <form
+            id="cargoForm"
+            class="card d-flex justify-content-center p-3 border border-3 bg-primary-subtle"
+            style="margin-top: 2rem"
+          >
+            <label for="cargoName" class="form-label"
+              >Введите название груза:</label
+            >
+            <input
+              type="text"
+              id="cargoName"
+              name="cargoName"
+              class="form-control"
+              required
+            />
+
+            <label for="origin" class="form-label">Откуда: </label>
+            <select id="origin" name="origin" class="form-select">
+              <option value="msk">Москва</option>
+              <option value="spb">Санкт-Петербург</option>
+              <option value="ekb">Екатеринбург</option>
+              <option value="nsk">Новосибирск</option>
+            </select>
+
+            <label for="destination" class="form-label">Куда: </label>
+            <select id="destination" name="destination" class="form-select">
+              <option value="msk">Москва</option>
+              <option value="spb">Санкт-Петербург</option>
+              <option value="ekb">Екатеринбург</option>
+              <option value="nsk">Новосибирск</option>
+            </select>
+
+            <label for="date" class="form-label">Введите дату отправки: </label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              class="form-control"
+              required
+            />
+
+            <label for="status" class="form-label">Статус отправки: </label>
+            <select id="status" name="status" class="form-select">
+              <option value="1" selected>Ожидает отправки</option>
+              <option value="2">В пути</option></select
+            ><br />
+
+            <input
+              type="submit"
+              value="Добавить груз"
+              id="submitForm"
+              class="btn btn-primary"
+            />
+          </form>
+        </aside>
+      </main>
     </div>
     <script
       defer

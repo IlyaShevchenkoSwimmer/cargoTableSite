@@ -12,7 +12,7 @@ function createCargoList(state: RootState, list: HTMLElement, filter = 0) {
     <tr ${
       filter === 0 ? "" : cargo.status === filter ? "" : "hidden"
     } style="width: 60%;">
-    <td>
+    <td style="padding: 0; border: none" class="rounded">
     <article class="card d-flex justify-content-center p-3 border border-3 ${
       cargo.status === 1
         ? "bg-warning"
@@ -23,7 +23,9 @@ function createCargoList(state: RootState, list: HTMLElement, filter = 0) {
     <h2>${cargo.name}</h2> <span style="color: grey">${cargo.id}</span>
     <span>Откуда: ${cargo.origin}</span><span>Куда: ${cargo.destination}</span>
       <span>Дата отправления: ${cargo.departureDate}</span>
-      <select id="${cargo.id}" name="${cargo.id}" class="cargoSelect">
+      <select id="${cargo.id}" name="${
+      cargo.id
+    }" class="cargoSelect form-select">
       <option value="1" ${
         cargo.status === 1 ? "selected" : ""
       }>Ожидает отправки</option>
@@ -36,7 +38,7 @@ function createCargoList(state: RootState, list: HTMLElement, filter = 0) {
             </select>
             </article>
             </td>
-            </tr>`;
+            </tr><tr style="height: 20px; border: none;"></tr>`;
   });
 
   const statusSelect = document.querySelectorAll(".cargoSelect");
@@ -67,34 +69,90 @@ function statusChange(event: Event) {
   const cargoMonth = neededCargoDate?.slice(5, 7);
   const cargoDay = neededCargoDate?.slice(8, 10);
 
-  if (
-    (Number(cargoYear) > Number(yyyy)
-      ? true
-      : Number(cargoMonth) > Number(mm)
-      ? true
-      : Number(cargoDay) > Number(dd)) &&
-    target.value === "3"
-  ) {
-    alert("Товар не мог опередить время!");
-    createCargoList(store.getState(), cargoList as HTMLElement);
-  }
-
-  if (
-    Number(cargoYear) <= Number(yyyy)
-      ? true
-      : Number(cargoMonth) <= Number(mm)
-      ? true
-      : Number(cargoDay) <= Number(dd) ||
-        target.value === "1" ||
-        target.value === "2"
-  ) {
+  // check for departureDate and actual date before changing status
+  if (target.value === "1" || target.value === "2") {
     store.dispatch(
       changeStatus({
         cargoStatus: Number(target.value),
         cargoId: target.id,
       })
     );
-    createCargoList(store.getState(), cargoList as HTMLElement);
+    const filter = (document.getElementById("filter") as HTMLSelectElement)
+      .value;
+    createCargoList(store.getState(), cargoList as HTMLElement, Number(filter));
+  } else {
+    if (Number(cargoYear) > Number(yyyy)) {
+      alert("Товар не мог опередить время!");
+      createCargoList(store.getState(), cargoList as HTMLElement);
+    } else if (Number(cargoYear) === Number(yyyy)) {
+      if (Number(cargoMonth) > Number(mm)) {
+        alert("Товар не мог опередить время!");
+        createCargoList(store.getState(), cargoList as HTMLElement);
+      } else if (Number(cargoMonth) === Number(mm)) {
+        if (Number(cargoDay) > Number(dd)) {
+          alert("Товар не мог опередить время!");
+          createCargoList(store.getState(), cargoList as HTMLElement);
+        } else if (Number(cargoDay) === Number(dd)) {
+          store.dispatch(
+            changeStatus({
+              cargoStatus: Number(target.value),
+              cargoId: target.id,
+            })
+          );
+          const filter = (
+            document.getElementById("filter") as HTMLSelectElement
+          ).value;
+          createCargoList(
+            store.getState(),
+            cargoList as HTMLElement,
+            Number(filter)
+          );
+        } else {
+          store.dispatch(
+            changeStatus({
+              cargoStatus: Number(target.value),
+              cargoId: target.id,
+            })
+          );
+          const filter = (
+            document.getElementById("filter") as HTMLSelectElement
+          ).value;
+          createCargoList(
+            store.getState(),
+            cargoList as HTMLElement,
+            Number(filter)
+          );
+        }
+      } else {
+        store.dispatch(
+          changeStatus({
+            cargoStatus: Number(target.value),
+            cargoId: target.id,
+          })
+        );
+        const filter = (document.getElementById("filter") as HTMLSelectElement)
+          .value;
+        createCargoList(
+          store.getState(),
+          cargoList as HTMLElement,
+          Number(filter)
+        );
+      }
+    } else {
+      store.dispatch(
+        changeStatus({
+          cargoStatus: Number(target.value),
+          cargoId: target.id,
+        })
+      );
+      const filter = (document.getElementById("filter") as HTMLSelectElement)
+        .value;
+      createCargoList(
+        store.getState(),
+        cargoList as HTMLElement,
+        Number(filter)
+      );
+    }
   }
 }
 
